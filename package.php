@@ -67,6 +67,8 @@ $package->addPackageDepWithChannel(
 	'pear.silverorange.com',
 	'1.5.25'
 );
+$package->addExtensionDep('required', 'curl');
+$package->addExtensionDep('required', 'simplexml');
 
 $package->generateContents();
 
