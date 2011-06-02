@@ -29,21 +29,24 @@ abstract class SniftrPost
 			$class = 'SniftrPostVideo';
 			break;
 		case 'conversation' :
-			$class = 'SniftrPostVideo';
+			$class = 'SniftrPostConversation';
 			break;
 		case 'link' :
-			$class = 'SniftrPostVideo';
+			$class = 'SniftrPostLink';
 			break;
 		case 'quote' :
-			$class = 'SniftrPostVideo';
+			$class = 'SniftrPostQuote';
 			break;
 		case 'photo' :
-			$class = 'SniftrPostVideo';
+			$class = 'SniftrPostPhoto';
 			break;
 		case 'regular' :
-			$class = 'SniftrPostVideo';
+		default:
+			$class = 'SniftrPostRegular';
 			break;
 		}
+
+		include_once 'Sniftr/'.$class.'.php';
 
 		return new $class($element);
 	}
