@@ -13,14 +13,13 @@ class SniftrPostQuote extends SniftrPost
 
 	public function getBody()
 	{
-		$text = 'quote-text';
-		$source = 'quote-source';
-
 		ob_start();
-		echo '<em>“'.$this->$text.'”</em>';
 
-		if (isset($this->$source) && $this->$source != '') {
-			echo '<br />'.$this->$source;
+		echo '<em>“', $this->element->{'quote-text'}, '”</em>';
+
+		if (isset($this->element->{'quote-source'}) &&
+			$this->element->{'quote-source'} != '') {
+			echo '<br />', $this->element->{'quote-source'};
 		}
 
 		return ob_get_clean();

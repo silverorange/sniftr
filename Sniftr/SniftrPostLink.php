@@ -13,15 +13,18 @@ class SniftrPostLink extends SniftrPost
 
 	public function getBody()
 	{
-		$text = 'link-text';
-		$description = 'link-description';
-		$url = 'link-url';
-
 		ob_start();
-		echo '<strong><a href="'.$this->$url.'">'.$this->$text.'</a></strong>';
 
-		if (isset($this->$description) && $this->$description != '') {
-			echo '<p>'.$this->$description.'</p>';
+		echo '<strong>';
+		$anchor = new SwatHtmlTag('a');
+		$anchor->href = $this->element->{'link-url'};
+		$anchor->setContent($this->element->{'link-text'});
+		$anchor->display();
+		echo '</strong>';
+
+		if (isset($this->element->{'link-description'}) &&
+			$this->element->{'link-description'} != '') {
+			echo '<p>', $this->element->{'link-description'}, '</p>';
 		}
 
 		return ob_get_clean();
@@ -32,9 +35,9 @@ class SniftrPostLink extends SniftrPost
 
 	public function getTitle()
 	{
-		$link = 'link-text';
-		if (isset($this->$link) && $this->$link != '') {
-			return $this->$link;
+		if (isset($this->element->{'link-text'}) &&
+			$this->element->{'link-text'} != '') {
+			return $this->element->{'link-text'};
 		}
 
 		return Sniftr::_('Link');
