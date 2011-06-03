@@ -13,8 +13,7 @@ class SniftrPostVideo extends SniftrPost
 
 	public function getBody()
 	{
-		$player = 'video-player';
-		return $this->$player;
+		return $this->element->{'video-player'};
 	}
 
 	// }}}
@@ -22,9 +21,9 @@ class SniftrPostVideo extends SniftrPost
 
 	public function getTitle()
 	{
-		$caption = 'video-caption';
-		if (isset($this->$caption) && $this->$caption != '') {
-			return strip_tags($this->$caption);
+		if (isset($this->element->{'video-caption'}) &&
+			$this->element->{'video-caption'} != '') {
+			return strip_tags($this->element->{'video-caption'});
 		}
 
 		return Sniftr::_('Untitled Video');

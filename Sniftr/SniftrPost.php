@@ -60,27 +60,11 @@ abstract class SniftrPost
 	}
 
 	// }}}
-	// {{{ public function __get()
-
-	public function __get($name)
-	{
-		return $this->element->$name;
-	}
-
-	// }}}
-	// {{{ public function __isset()
-
-	public function __isset($name)
-	{
-		return isset($this->element->$name);
-	}
-
-	// }}}
 	// {{{ public function getType()
 
 	public function getType()
 	{
-		return (string)$this->type;
+		return (string)$this->element['type'];
 	}
 
 	// }}}
@@ -88,8 +72,7 @@ abstract class SniftrPost
 
 	public function getLink()
 	{
-		$name = 'url-with-slug';
-		return (string)$this->$name;
+		return (string)$this->element['url-with-slug'];
 	}
 
 	// }}}
@@ -97,8 +80,7 @@ abstract class SniftrPost
 
 	public function getDate()
 	{
-		$name = 'unix-timestamp';
-		$ts = (integer)$this->$name;
+		$ts = (integer)$this->element['unix-timestamp'];
 		return new SwatDate('@'.$ts, new HotDateTimeZone('UTC'));
 	}
 

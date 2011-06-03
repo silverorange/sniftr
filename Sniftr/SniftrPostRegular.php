@@ -13,8 +13,7 @@ class SniftrPostRegular extends SniftrPost
 
 	public function getBody()
 	{
-		$body = 'regular-body';
-		return $this->$body;
+		return $this->element->{'regular-body'};
 	}
 
 	// }}}
@@ -22,9 +21,9 @@ class SniftrPostRegular extends SniftrPost
 
 	public function getTitle()
 	{
-		$title = 'regular-title';
-		if (isset($this->$title) && $this->$title != '') {
-			return $this->$title;
+		if (isset($this->element->{'regular-title'}) &&
+			$this->element->{'regular-title'} != '') {
+			return $this->element->{'regular-title'};
 		}
 
 		return Sniftr::_('Untitled');

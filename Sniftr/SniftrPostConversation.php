@@ -15,7 +15,7 @@ class SniftrPostConversation extends SniftrPost
 	{
 		ob_start();
 
-		foreach ($this->conversation->line as $line) {
+		foreach ($this->element->conversation->line as $line) {
 			echo '<p>';
 			echo '<strong>', $line['label'], '</strong> ', ((string)$line);
 			echo '</p>';
@@ -29,9 +29,9 @@ class SniftrPostConversation extends SniftrPost
 
 	public function getTitle()
 	{
-		$title = 'conversation-title';
-		if (isset($this->$title) && $this->$title != '') {
-			return $this->$title;
+		if (isset($this->element->{'conversation-title'}) &&
+			$this->element->{'conversation-title'} != '') {
+			return $this->element->{'conversation-title'};
 		}
 
 		return Sniftr::_('Conversation');

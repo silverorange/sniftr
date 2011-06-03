@@ -18,13 +18,14 @@ class SniftrPostPhoto extends SniftrPost
 
 	public function getBody()
 	{
-		$url = 'photo-url';
-
 		ob_start();
 
-		foreach ($this->$url as $url) {
+		foreach ($this->element->{'photo-url'} as $url) {
 			if ($url['max-width'] == self::$photo_dimension) {
-				echo '<img src="'.((string)$url).'" alt="" />';
+				$image_tag = new SwatHtmlTag('img');
+				$image_tag->src = (string)$url;
+				$image_tag->alt = '';
+				$image_tag->display();
 				break;
 			}
 		}
@@ -37,9 +38,9 @@ class SniftrPostPhoto extends SniftrPost
 
 	public function getTitle()
 	{
-		$caption = 'photo-caption';
-		if (isset($this->$caption) && $this->$caption != '') {
-			return $this->$caption;
+		if (isset($this->element->{'photo-caption'}) &&
+			$this->element->{'photo-caption'} != '') {
+			return $this->element->{'photo-caption'};
 		}
 
 		return Sniftr::_('Photo');
