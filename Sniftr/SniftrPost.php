@@ -25,8 +25,8 @@ abstract class SniftrPost
 		$type = $element['type'];
 
 		switch ($type) {
-		case 'video' :
-			$class = 'SniftrPostVideo';
+		case 'audio' :
+			$class = 'SniftrPostAudio';
 			break;
 		case 'conversation' :
 			$class = 'SniftrPostConversation';
@@ -34,11 +34,14 @@ abstract class SniftrPost
 		case 'link' :
 			$class = 'SniftrPostLink';
 			break;
+		case 'photo' :
+			$class = 'SniftrPostPhoto';
+			break;
 		case 'quote' :
 			$class = 'SniftrPostQuote';
 			break;
-		case 'photo' :
-			$class = 'SniftrPostPhoto';
+		case 'video' :
+			$class = 'SniftrPostVideo';
 			break;
 		case 'regular' :
 		default:
