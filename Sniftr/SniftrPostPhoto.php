@@ -40,7 +40,7 @@ class SniftrPostPhoto extends SniftrPost
 	{
 		if (isset($this->element->{'photo-caption'}) &&
 			$this->element->{'photo-caption'} != '') {
-			return $this->element->{'photo-caption'};
+			return strip_tags($this->element->{'photo-caption'});
 		}
 
 		return Sniftr::_('Photo');
