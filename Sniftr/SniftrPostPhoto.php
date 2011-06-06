@@ -9,9 +9,9 @@ require_once 'Sniftr/SniftrPost.php';
  */
 class SniftrPostPhoto extends SniftrPost
 {
-	// {{{ public static properties
+	// {{{ protected properties
 
-	public static $photo_dimension = 500;
+	protected $photo_width = 400;
 
 	// }}}
 	// {{{ public function getBody()
@@ -21,10 +21,10 @@ class SniftrPostPhoto extends SniftrPost
 		ob_start();
 
 		foreach ($this->element->{'photo-url'} as $url) {
-			if ($url['max-width'] == self::$photo_dimension) {
+			if ($url['max-width'] <= $this->photo_width) {
 				$image_tag = new SwatHtmlTag('img');
 				$image_tag->src = (string)$url;
-				$image_tag->alt = '';
+				$image_tag->alt = $this->getTitle();
 				$image_tag->display();
 				break;
 			}
@@ -44,6 +44,14 @@ class SniftrPostPhoto extends SniftrPost
 		}
 
 		return Sniftr::_('Photo');
+	}
+
+	// }}}
+	// {{{ public function setPhotoWidth()
+
+	public function setPhotoWidth($width)
+	{
+		$this->photo_width = $width;
 	}
 
 	// }}}
