@@ -37,9 +37,11 @@ class SniftrReader
 		$posts = array();
 
 		$xml = $this->getXML();
-		$simple_xml = new SimpleXMLElement($xml);
-		foreach ($simple_xml->posts->post as $post) {
-			$posts[] = SniftrPost::factory($post);
+		if ($xml != '') {
+			$simple_xml = new SimpleXMLElement($xml);
+			foreach ($simple_xml->posts->post as $post) {
+				$posts[] = SniftrPost::factory($post);
+			}
 		}
 
 		return $posts;
