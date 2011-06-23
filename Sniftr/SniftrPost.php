@@ -17,6 +17,11 @@ abstract class SniftrPost
 	 */
 	protected $element;
 
+	/**
+	 * @var integer
+	 */
+	protected $width = 400;
+
 	// }}}
 	// {{{ public static function factory()
 
@@ -85,6 +90,14 @@ abstract class SniftrPost
 	{
 		$ts = (integer)$this->element['unix-timestamp'];
 		return new SwatDate('@'.$ts, new HotDateTimeZone('UTC'));
+	}
+
+	// }}}
+	// {{{ public function setWidth()
+
+	public function setWidth($width)
+	{
+		$this->width = $width;
 	}
 
 	// }}}
