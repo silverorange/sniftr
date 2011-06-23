@@ -9,26 +9,35 @@ require_once 'Sniftr/SniftrPost.php';
  */
 class SniftrPostPhoto extends SniftrPost
 {
-	// {{{ protected properties
-
-	protected $photo_width = 400;
-
-	// }}}
 	// {{{ public function getBody()
 
 	public function getBody()
 	{
-		ob_start();
-
+		$best_url = null;
+		$best_delta = null;
+		$best_width = null;
 		foreach ($this->element->{'photo-url'} as $url) {
-			if ($url['max-width'] <= $this->photo_width) {
-				$image_tag = new SwatHtmlTag('img');
-				$image_tag->src = (string)$url;
-				$image_tag->alt = $this->getTitle();
-				$image_tag->display();
-				break;
+			$max_width = (isset($url['max-width'])) ?
+				$url['max-width'] : 400;
+
+			if ($best_url === null) {
+				$best_url = (string)$url;
+				$best_width = $max_width;
+				$best_delta = abs($max_width - $this->width);
+			} elseif (abs($max_width - $this->width) < $best_delta ||
+				($best_width > $this->width && $max_width <= $this->width)) {
+				$best_url = (string)$url;
+				$best_width = $max_width;
+				$best_delta = abs($max_width - $this->width);
 			}
 		}
+
+		ob_start();
+
+		$image_tag = new SwatHtmlTag('img');
+		$image_tag->src = $best_url;
+		$image_tag->alt = $this->getTitle();
+		$image_tag->display();
 
 		return ob_get_clean();
 	}
@@ -44,14 +53,6 @@ class SniftrPostPhoto extends SniftrPost
 		}
 
 		return Sniftr::_('Photo');
-	}
-
-	// }}}
-	// {{{ public function setPhotoWidth()
-
-	public function setPhotoWidth($width)
-	{
-		$this->photo_width = $width;
 	}
 
 	// }}}
