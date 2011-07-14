@@ -62,8 +62,28 @@ abstract class SniftrPost
 	// }}}
 	// {{{ public function __construct()
 
-	public function __construct(SimpleXMLElement $element)
+	/**
+	 * @param SimpleXMLElement|SniftrPost $element
+	 */
+	public function __construct($element)
 	{
+		$class = get_class($this);
+
+		if ($element instanceof $class) {
+			$element = $element->element;
+			if (!($element instanceof SimpleXMLElement)) {
+				throw new InvalidArgumentException(
+					'If using the copy constructor, the passed post must '.
+					'already have an XML element associated with it.');
+			}
+		}
+
+		if (!($element instanceof SimpleXMLElement)) {
+			throw new InvalidArgumentException(sprintf(
+				'The $element must be either a %s or a '.
+				'SimpleXMLElement.', $class));
+		}
+
 		$this->element = $element;
 	}
 
