@@ -67,7 +67,11 @@ abstract class SniftrPost
 	 */
 	public function __construct($element)
 	{
-		$class = get_class($this);
+		// get specific Sniftr post class
+		$class = get_parent_class($this);
+		while (strncmp('Sniftr', $class, 6) !== 0) {
+			$class = get_parent_class($class);
+		}
 
 		if ($element instanceof $class) {
 			$element = $element->element;
