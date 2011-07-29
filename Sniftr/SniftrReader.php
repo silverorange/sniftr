@@ -48,26 +48,45 @@ class SniftrReader
 	}
 
 	// }}}
-	// {{{ public function getXML()
+	// {{{ protected function getXML()
 
 	protected function getXML()
 	{
-		$key = $this->getCacheKey();
-		$xml = $this->app->getCacheValue($key);
+		$cache_key  = $this->getCacheKey();
+		$expiry_key = $this->getCacheExpiryKey();
 
-		if ($xml === false) {
-			$uri = sprintf(self::API_READ_ENDPOINT,
-				$this->app->config->sniftr->tumblr_username);
-
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_URL, $uri);
-			$xml = curl_exec($curl);
-			$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-			if ($status != 200) {
-				$xml = '';
+		$expired = $this->app->getCacheValue($expiry_key);
+		if ($expired === false) {
+			// expiry key expired, check for updated content on Tumblr
+			$xml = $this->getTumblrXML();
+			if ($xml === false) {
+				// Tumblr API is down, try long cached value
+				$xml = $this->app->getCacheValue($cache_key);
+				if ($xml === false) {
+					// Tumblr API is down, but we have no cached value
+					$xml = '';
+				}
 			} else {
-				$this->app->addCacheValue($xml, $key, null, 600);
+				// update long cache with new Tumblr content
+				$this->app->addCacheValue($xml, $cache_key, null, 7200);
+			}
+			// update expiry cache value
+			$this->app->addCacheValue('1', $expiry_key, null, 300);
+		} else {
+			// expiry key not expired, check for long cached value
+			$xml = $this->app->getCacheValue($cache_key);
+			if ($xml === false) {
+				// long cached version expired or does not exist, check
+				// for content on Tumblr
+				$xml = $this->getTumblrXML();
+				if ($xml === false) {
+					// Tumblr API is down, but we have no cached value
+					$xml = '';
+					$this->app->deleteCacheValue($expiry_key);
+				} else {
+					// update long cache with new Tumblr content
+					$this->app->addCacheValue($xml, $cache_key, null, 7200);
+				}
 			}
 		}
 
@@ -75,7 +94,35 @@ class SniftrReader
 	}
 
 	// }}}
-	// {{{ public function getCacheKey()
+	// {{{ protected function getTumblrXML()
+
+	protected function getTumblrXML()
+	{
+		$uri = sprintf(self::API_READ_ENDPOINT,
+			$this->app->config->sniftr->tumblr_username);
+
+		$curl = curl_init();
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_URL, $uri);
+		$xml = curl_exec($curl);
+		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+		if ($status != 200) {
+			$xml = false;
+		}
+
+		return $xml;
+	}
+
+	// }}}
+	// {{{ protected function getCacheExpiryKey()
+
+	protected function getCacheExpiryKey()
+	{
+		return 'tumblr-'.$this->app->config->sniftr->tumblr_username.'-expiry';
+	}
+
+	// }}}
+	// {{{ protected function getCacheKey()
 
 	protected function getCacheKey()
 	{
