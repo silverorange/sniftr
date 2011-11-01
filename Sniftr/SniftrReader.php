@@ -38,10 +38,21 @@ class SniftrReader
 
 		$xml = $this->getXML();
 		if ($xml != '') {
-			$simple_xml = new SimpleXMLElement($xml);
-			foreach ($simple_xml->posts->post as $post) {
-				$posts[] = SniftrPost::factory($post);
+
+			$errors = libxml_use_internal_errors(true);
+
+			try {
+				$simple_xml = new SimpleXMLElement('xxxx');///$xml);
+				foreach ($simple_xml->posts->post as $post) {
+					$posts[] = SniftrPost::factory($post);
+				}
+			} catch (Exception $e) {
+				// ignore SimpleXML parsing exception, just return no posts.
 			}
+
+			libxml_clear_errors();
+			libxml_use_internal_errors($errors);
+
 		}
 
 		return $posts;
