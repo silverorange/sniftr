@@ -42,7 +42,7 @@ class SniftrReader
 			$errors = libxml_use_internal_errors(true);
 
 			try {
-				$simple_xml = new SimpleXMLElement('xxxx');///$xml);
+				$simple_xml = new SimpleXMLElement($xml);
 				foreach ($simple_xml->posts->post as $post) {
 					$posts[] = SniftrPost::factory($post);
 				}
