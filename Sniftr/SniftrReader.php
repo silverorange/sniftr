@@ -32,11 +32,11 @@ class SniftrReader
 	// }}}
 	// {{{ public function getPosts()
 
-	public function getPosts()
+	public function getPosts($force_cache_update = false)
 	{
 		$posts = array();
 
-		$xml = $this->getXML();
+		$xml = $this->getXML($force_cache_update);
 		if ($xml != '') {
 
 			$errors = libxml_use_internal_errors(true);
@@ -59,14 +59,24 @@ class SniftrReader
 	}
 
 	// }}}
+	// {{{ public function getPostsAndForceCacheUpdate()
+
+	public function getPostsAndForceCacheUpdate()
+	{
+		return $this->getPosts(true);
+	}
+
+	// }}}
 	// {{{ protected function getXML()
 
-	protected function getXML()
+	protected function getXML($force_cache_update)
 	{
 		$cache_key  = $this->getCacheKey();
 		$expiry_key = $this->getCacheExpiryKey();
 
-		$expired = $this->app->getCacheValue($expiry_key);
+		$expired = ($force_cache_update ||
+			$this->app->getCacheValue($expiry_key));
+
 		if ($expired === false) {
 			// expiry key expired, check for updated content on Tumblr
 			$xml = $this->getTumblrXML();
