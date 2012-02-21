@@ -24,9 +24,15 @@ class SniftrReader
 	// }}}
 	// {{{ public function __construct()
 
-	public function __construct(SiteApplication $app)
+	public function __construct(SiteApplication $app, $endpoint)
 	{
 		$this->app = $app;
+		if (preg_match('!https?://!i', $endpoint) === 1) {
+			$this->endpoint = $endpoint;
+		} else {
+			$this->endpoint = sprintf(self::API_READ_ENDPOINT, $endpoint);
+		}
+		echo $this->endpoint;
 	}
 
 	// }}}
@@ -119,12 +125,9 @@ class SniftrReader
 
 	protected function getTumblrXML()
 	{
-		$uri = sprintf(self::API_READ_ENDPOINT,
-			$this->app->config->sniftr->tumblr_username);
-
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_URL, $uri);
+		curl_setopt($curl, CURLOPT_URL, $this->endpoint);
 		$xml = curl_exec($curl);
 		$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		if ($status != 200) {
@@ -139,7 +142,7 @@ class SniftrReader
 
 	protected function getCacheExpiryKey()
 	{
-		return 'tumblr-'.$this->app->config->sniftr->tumblr_username.'-expiry';
+		return 'sniftr-'.md5($this->endpoint).'-expiry';
 	}
 
 	// }}}
@@ -147,7 +150,7 @@ class SniftrReader
 
 	protected function getCacheKey()
 	{
-		return 'tumblr-'.$this->app->config->sniftr->tumblr_username;
+		return 'sniftr-'.md5($this->endpoint);
 	}
 
 	// }}}
