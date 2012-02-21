@@ -32,7 +32,6 @@ class SniftrReader
 		} else {
 			$this->endpoint = sprintf(self::API_READ_ENDPOINT, $endpoint);
 		}
-		echo $this->endpoint;
 	}
 
 	// }}}
