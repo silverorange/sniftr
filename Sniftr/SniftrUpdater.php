@@ -28,7 +28,10 @@ class SniftrUpdater extends SiteCommandLineApplication
 			SiteCommandLineApplication::VERBOSITY_ALL
 		);
 
-		$reader = new SniftrReader($this);
+		$reader = new SniftrReader(
+			$this,
+			$this->config->sniftr->tumblr_username
+		);
 		$posts = $reader->getPostsAndForceCacheUpdate();
 
 		$this->output(
