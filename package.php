@@ -59,7 +59,7 @@ $package->addReplacement(
 	'data_dir'
 );
 
-$package->setPhpDep('5.1.5');
+$package->setPhpDep('5.3.0');
 $package->setPearinstallerDep('1.4.0');
 $package->addPackageDepWithChannel(
 	'required',

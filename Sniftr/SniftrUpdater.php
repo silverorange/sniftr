@@ -8,7 +8,7 @@ require_once 'Sniftr/SniftrReader.php';
 
 /**
  * @pacakge   Sniftr
- * @copyright 2011 silverorange
+ * @copyright 2011-2013 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  */
 class SniftrUpdater extends SiteCommandLineApplication
@@ -99,7 +99,7 @@ class SniftrUpdater extends SiteCommandLineApplication
 
 		if ($config->date->time_zone !== null) {
 			$this->default_time_zone =
-				new HotDateTimeZone($config->date->time_zone);
+				new DateTimeZone($config->date->time_zone);
 		}
 
 		$this->default_locale = $config->i18n->locale;
