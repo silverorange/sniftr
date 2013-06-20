@@ -1,11 +1,10 @@
 <?php
 
-require_once 'HotDate/HotDateTimeZone.php';
 require_once 'Swat/SwatDate.php';
 
 /**
  * @package   Sniftr
- * @copyright 2011 silverorange
+ * @copyright 2011-2013 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  */
 abstract class SniftrPost
@@ -113,7 +112,7 @@ abstract class SniftrPost
 	public function getDate()
 	{
 		$ts = (integer)$this->element['unix-timestamp'];
-		return new SwatDate('@'.$ts, new HotDateTimeZone('UTC'));
+		return new SwatDate('@'.$ts, new DateTimeZone('UTC'));
 	}
 
 	// }}}
