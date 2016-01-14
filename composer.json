@@ -1,6 +1,6 @@
 {
 	"name": "silverorange/sniftr",
-	"description": "VIew layer for Tumblr blog content.",
+	"description": "View layer for Tumblr blog content.",
 	"type": "library",
 	"keywords": [ "tumblr" ],
 	"homepage": "https://github.com/silverorange/sniftr",
