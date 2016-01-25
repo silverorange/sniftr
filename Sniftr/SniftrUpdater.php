@@ -8,7 +8,7 @@ require_once 'Sniftr/SniftrReader.php';
 
 /**
  * @pacakge   Sniftr
- * @copyright 2011-2013 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  */
 class SniftrUpdater extends SiteCommandLineApplication

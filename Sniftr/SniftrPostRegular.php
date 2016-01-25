@@ -4,7 +4,7 @@ require_once 'Sniftr/SniftrPost.php';
 
 /**
  * @package   Sniftr
- * @copyright 2011 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  */
 class SniftrPostRegular extends SniftrPost
