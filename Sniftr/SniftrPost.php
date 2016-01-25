@@ -4,7 +4,7 @@ require_once 'Swat/SwatDate.php';
 
 /**
  * @package   Sniftr
- * @copyright 2011-2013 silverorange
+ * @copyright 2011-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  */
 abstract class SniftrPost
