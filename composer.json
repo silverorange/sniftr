@@ -14,11 +14,10 @@
 	"require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*",
-		"ext-simplexml": "*",
-		"silverorange/silverorange_autoloader": "*"
+		"ext-simplexml": "*"
 	},
 	"autoload": {
-		"files": [ "autoload.php" ]
+		"classmap": [ "Sniftr/" ]
 	},
 	"include-path": [
 		"./"
