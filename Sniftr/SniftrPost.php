@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Swat/SwatDate.php';
-
 /**
  * @package   Sniftr
  * @copyright 2011-2016 silverorange
