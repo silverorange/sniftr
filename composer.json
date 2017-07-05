@@ -15,8 +15,8 @@
 		"php": ">=5.3.0",
 		"ext-curl": "*",
 		"ext-simplexml": "*",
-		"silverorange/site": "^4.11.0",
-		"silverorange/swat": "^2.7.0"
+		"silverorange/site": "^5.0.0",
+		"silverorange/swat": "^3.0.0"
 	},
 	"autoload": {
 		"classmap": [ "Sniftr/" ]
