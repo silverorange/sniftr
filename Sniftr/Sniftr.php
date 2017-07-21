@@ -103,7 +103,7 @@ class Sniftr
 	public static function setupGettext()
 	{
 		$path = '@DATA-DIR@/Sniftr/locale';
-		if (substr($path, 0 ,1) === '@')
+		if (substr($path, 0, 1) === '@')
 			$path = dirname(__FILE__).'/../locale';
 
 		bindtextdomain(self::GETTEXT_DOMAIN, $path);
