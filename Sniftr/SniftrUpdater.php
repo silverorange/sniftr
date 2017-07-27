@@ -1,11 +1,5 @@
 <?php
 
-require_once 'Site/SiteCommandLineApplication.php';
-require_once 'Site/SiteConfigModule.php';
-require_once 'Site/SiteMemcacheModule.php';
-require_once 'Sniftr/Sniftr.php';
-require_once 'Sniftr/SniftrReader.php';
-
 /**
  * @pacakge   Sniftr
  * @copyright 2011-2016 silverorange
