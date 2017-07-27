@@ -51,8 +51,6 @@ abstract class SniftrPost
 			break;
 		}
 
-		include_once 'Sniftr/'.$class.'.php';
-
 		return new $class($element);
 	}
 
