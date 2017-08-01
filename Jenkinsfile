@@ -33,6 +33,9 @@ pipeline {
             when {
                 branch 'master'
             }
+            steps {
+                sh './vendor/bin/phpcs'
+            }
         }
     }
 }
